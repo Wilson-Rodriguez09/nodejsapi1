@@ -1,0 +1,12 @@
+{
+  "name": "nodejsapi1",
+  "version": "1.0.0",
+  "main": "WSindex.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon ./src/WSindex.js"
+  },
+  "author": "Wilson sambony",
+  "license": "ISC",
+  "description": ""
+}
