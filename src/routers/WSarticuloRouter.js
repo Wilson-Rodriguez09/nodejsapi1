@@ -5,9 +5,10 @@ import {validarToken} from '../controllers/WSautenticacionUsuario.js'
 const ruta = Router();
 
 ruta.get("/articulo",validarToken,listarArticulos)
-ruta.get("/articulo/:id_articulo",buscarArticulo)
-ruta.post("/articulo",registrarArticulos)
-ruta.put("/articulo/:id_articulos",actualizarArticulos);
-ruta.delete("/articulo/:id_articulos", eliminarArticulo);
+ruta.get("/articulo/:id_articulo",validarToken,buscarArticulo)
+ruta.post("/articulo",validarToken,registrarArticulos)
+ruta.put("/articulo/:id_articulo",validarToken,actualizarArticulos);
+ruta.delete("/articulo/:id_articulo",validarToken,eliminarArticulo);
 
 export default ruta;
+    

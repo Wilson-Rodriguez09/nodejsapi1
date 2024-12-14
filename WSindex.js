@@ -14,7 +14,18 @@ app.use(cliente)
 app.use(alquiler)
 app.use(intereses)
 app.use(articulo)
+
+//validacion de usuario y acceso con token
 app.use(login)
+
+//Docuemntacion con plantilla ejs
+
+app.set('views','./src/views');
+app.set('view engine', 'ejs')
+
+app.get('/WSdocuments',(req,res)=>{
+    res.render('WSdocuments.ejs')
+})
 
 
 app.listen(3000,()=>{

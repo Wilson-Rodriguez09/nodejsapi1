@@ -30,18 +30,19 @@ export const actualizarArticulos = async(req, resp)=>{
     try{
         const {nombre, tipo}= req.body;
         const id = req.params.id_articulo;
-        const sql = `update articulos set nombre=?, tipo=? where id_articulos${id}`
-        const [result]= await mysql.query(sql,[nombre, tipo]);
+        const sql = `update articulos set nombre=?, tipo=?, activo=false where id_articulo=?`
+        const [result]= await mysql.query(sql,[nombre, tipo, id]);
         resp.status(201).json({msg:"Actualizacion exitosa", result})
     }catch(error){
         return resp.status(500).json({msg:"error al actualizar"})
+        
     }
 };
 
 export const eliminarArticulo = async(req, resp)=>{
     try{
         const id = req.params.id_articulos;
-        const sql = `delete from articulos where id_articulos=?`;
+        const sql = `delete from articulos where id_articulo=?`;
         const [result]= await mysql.query(sql,[id]);
         if(result.affectedRows>0)return resp.status(200).json({msg:"articulos eliminado con exito", result});
         else{
@@ -55,7 +56,7 @@ export const eliminarArticulo = async(req, resp)=>{
 export const buscarArticulo = async (req, resp)=>{
     try{
         const id = req.params.id_articulos;
-        const sql = `select * from articulos where id_articulos=?`;
+        const sql = `select * from articulos where id_articulo=?`;
         const [result]= await mysql.query(sql,[id]);
         if(result.length>0)return resp.status(200).json({msg:"articulo encontrado con exito", result});
         else{

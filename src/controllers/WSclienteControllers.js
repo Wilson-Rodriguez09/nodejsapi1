@@ -1,6 +1,7 @@
 import { mysql } from "../databases/WSconexion.js";
 
 
+
 export const listarUsuario= async(req, resp)=>{
     try{
         const sql ="select * from clientes";
@@ -18,9 +19,9 @@ export const listarUsuario= async(req, resp)=>{
 
 export const registrarClientes = async(req, resp)=>{
     try{
-        const {identificacion, nombres, direccion, telefono, fecha_nacimiento}= req.body;
-        const sql = `insert into clientes(identificacion, nombres, direccion, telefono, fecha_nacimiento) values (?,?,?,?,?)`
-        const [result]= await mysql.query(sql,[identificacion, nombres, direccion, telefono, fecha_nacimiento])
+        const {identificacion, nombres, direccion, telefono, fecha_nacimiento, password}= req.body;
+        const sql = `insert into clientes(identificacion, nombres, direccion, telefono, fecha_nacimiento, password) values (?,?,?,?,?,?)`
+        const [result]= await mysql.query(sql,[identificacion, nombres, direccion, telefono, fecha_nacimiento, password])
         resp.status(201).json({msg:"Registro exitosos",result})
     }catch(error){
         return resp.status(500).json({msg:"Error al crear"})
@@ -29,10 +30,10 @@ export const registrarClientes = async(req, resp)=>{
 
 export const actualizarClientes = async(req, resp)=>{
     try{
-        const {identificacion, nombres, direccion, telefono, fecha_nacimiento}= req.body;
+        const {identificacion, nombres, direccion, telefono, fecha_nacimiento, password}= req.body;
         const id = req.params.id_clientes;
-        const sql = `update clientes set identificacion=?, nombres=?, direccion=?, telefono=?, fecha_nacimiento=? where id_clientes${id}`
-        const [result]= await mysql.query(sql,[identificacion, nombres, direccion, telefono, fecha_nacimiento]);
+        const sql = `update clientes set identificacion=?, nombres=?, direccion=?, telefono=?, fecha_nacimiento=?, password=? where id_clientes=?`
+        const [result]= await mysql.query(sql,[identificacion, nombres, direccion, telefono, fecha_nacimiento, password, id]);
         resp.status(201).json({msg:"Actualizacion exitosa", result})
     }catch(error){
         return resp.status(500).json({msg:"error al actualizar"})
